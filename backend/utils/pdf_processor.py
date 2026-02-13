@@ -1,35 +1,33 @@
-# Temporary simplified version for deployment without PyMuPDF
-# TODO: Add back PDF merging with alternative solution or different platform
-
+import fitz
 import base64
 import os
 from sqlalchemy.orm import Session
 from .. import models
 
 def merge_signatures(document_id: int, db: Session):
-    """
-    Simplified version for deployment.
-    Marks document as completed without actual PDF merging.
-    TODO: Implement PDF merging using cloud service or different library.
-    """
-    print(f"DEBUG: Processing document {document_id} (PDF merge disabled for deployment)")
+    print(f"DEBUG: Processing PDF merge for document {document_id}")
     document = db.query(models.Document).filter(models.Document.id == document_id).first()
     if not document:
-        print(f"DEBUG: Document {document_id} not found")
+        print(f"DEBUG: Document {document_id} not found for merging")
         return None
 
-    # Verify all signatures are present
-    all_signed = all(f.status == "signed" for f in document.signature_fields)
-    if not all_signed:
-        print(f"DEBUG: Not all fields are signed yet")
+    # Load original PDF
+    pdf_path = document.file_path
+    if not os.path.exists(pdf_path):
+        print(f"DEBUG: Original PDF not found at {pdf_path}")
         return None
-    
-    # Mark document as completed
-    # In production, this would merge signatures into PDF
-    document.status = models.DocumentStatus.COMPLETED
-    document.signed_file_path = document.file_path  # Use original for now
-    db.commit()
-    
-    print(f"DEBUG: Document {document_id} marked as completed (PDF merge pending)")
-    return document.file_path
+
+    try:
+        doc = fitz.open(pdf_path)
+        
+        # Process each signature field
+        for field in document.signature_fields:
+            if field.status != "signed" or not field.signature_data:
+                continue
+                
+            # Standardized coordinate scaling (matching 800px width from frontend)
+            # fitz page coordinates are in points (1 point = 1/72 inch)
+            page = doc[field.page_number - 1]
+            page_rect = page.rect
+            scale_factor = page_rect.width / 800
 
