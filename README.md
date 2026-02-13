@@ -35,6 +35,21 @@ DocSign is a secure, digital signature platform inspired by DocuSign, built with
 4. **Sign**: Signers use the signature pad to apply their marks at exact coordinates.
 5. **Complete**: Document status moves to "Completed" once all fields are signed.
 
+## 🌐 Live Demo
+
+**Frontend Application**: [https://doc-sign-app.vercel.app](https://doc-sign-app.vercel.app)
+
+The live frontend is deployed on Vercel and showcases the complete UI/UX of the application. For a full demonstration with backend functionality (PDF processing, database, authentication), see the [Local Demo Guide](LOCAL_DEMO.md).
+
+### What's Live:
+- ✅ Complete UI/UX design
+- ✅ All frontend pages (Login, Dashboard, Signature Studio, etc.)
+- ✅ Responsive design
+- ✅ Professional interface
+
+### Full Stack Demo:
+For recruiters or demonstrations requiring full backend functionality, the application can be run locally with both frontend and backend. See [LOCAL_DEMO.md](LOCAL_DEMO.md) for instructions.
+
 ## 📸 Screenshots
 
 ### Authentication
