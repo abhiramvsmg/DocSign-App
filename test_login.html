@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Direct Login Test</title>
+    <style>
+        body { font-family: Arial; padding: 20px; background: #1a1a1a; color: white; }
+        input, button { display: block; margin: 10px 0; padding: 10px; width: 300px; }
+        button { background: #0066cc; color: white; border: none; cursor: pointer; }
+        #result { margin-top: 20px; padding: 10px; background: #333; }
+        .success { color: #00ff00; }
+        .error { color: #ff0000; }
+    </style>
+</head>
+<body>
+    <h1>Direct Backend Login Test</h1>
+    <p>Testing: http://127.0.0.1:8000/api/auth/login</p>
+    
+    <input type="email" id="email" value="abhiram@gmail.com" placeholder="Email">
+    <input type="password" id="password" value="password123" placeholder="Password">
+    <button onclick="testLogin()">Test Login</button>
+    
+    <div id="result"></div>
+
+    <script>
+        async function testLogin() {
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            const resultDiv = document.getElementById('result');
+            
+            resultDiv.innerHTML = '<p>Testing login...</p>';
+            
+            try {
+                // Create URLSearchParams for form-urlencoded
+                const params = new URLSearchParams();
+                params.append('username', email);
+                params.append('password', password);
+                
+                const response = await fetch('http://127.0.0.1:8000/api/auth/login', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded',
+                    },
+                    body: params
+                });
+                
+                const data = await response.json();
+                
+                if (response.ok) {
+                    resultDiv.innerHTML = `
+                        <p class="success">✅ LOGIN SUCCESSFUL!</p>
+                        <p>Token: ${data.access_token.substring(0, 50)}...</p>
+                        <p><strong>Backend is working perfectly!</strong></p>
+                        <p>The issue is in the React frontend, not the backend.</p>
+                    `;
+                } else {
+                    resultDiv.innerHTML = `
+                        <p class="error">❌ LOGIN FAILED</p>
+                        <p>Status: ${response.status}</p>
+                        <p>Error: ${data.detail || JSON.stringify(data)}</p>
+                    `;
+                }
+            } catch (error) {
+                resultDiv.innerHTML = `
+                    <p class="error">❌ CONNECTION ERROR</p>
+                    <p>${error.message}</p>
+                    <p><strong>Backend is not running or not accessible at http://127.0.0.1:8000</strong></p>
+                `;
+            }
+        }
+    </script>
+</body>
+</html>
