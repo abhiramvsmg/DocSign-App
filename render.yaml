@@ -1,0 +1,15 @@
+# Render Blueprint for DocSign Backend
+
+services:
+  - type: web
+    name: docsign-backend
+    env: docker
+    dockerfilePath: ./backend/Dockerfile
+    dockerContext: ./backend
+    envVars:
+      - key: SECRET_KEY
+        value: fkn_vZfQCUa1zTFVOk2klSRhYT2HddEKY_QhbtQEx1Bw
+      - key: ALGORITHM
+        value: HS256
+      - key: ACCESS_TOKEN_EXPIRE_MINUTES
+        value: 30
