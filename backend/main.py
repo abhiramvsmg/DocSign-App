@@ -1,9 +1,9 @@
 from fastapi import FastAPI, Request
 from fastapi.responses import JSONResponse
 from fastapi.middleware.cors import CORSMiddleware
-from .database import engine, Base
-from . import models
-from .routers import auth, documents
+from database import engine, Base
+import models
+from routers import auth, documents
 from fastapi.staticfiles import StaticFiles
 import os
 
