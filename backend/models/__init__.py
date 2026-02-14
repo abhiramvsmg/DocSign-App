@@ -1,2 +1,2 @@
-from .user import User
-from .document import Document, SignatureField, DocumentStatus, AuditLog
+from models.user import User
+from models.document import Document, SignatureField, DocumentStatus, AuditLog

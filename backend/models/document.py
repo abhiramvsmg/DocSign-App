@@ -1,7 +1,9 @@
-from sqlalchemy import Column, Integer, String, DateTime, ForeignKey, Float, Enum
+from sqlalchemy import Column, Integer, String, DateTime, ForeignKey, Enum as SQLEnum, JSON
 from sqlalchemy.orm import relationship
 from sqlalchemy.sql import func
-from ..database import Base
+from datetime import datetime
+import enum
+from database import Base
 import enum
 
 class DocumentStatus(str, enum.Enum):
