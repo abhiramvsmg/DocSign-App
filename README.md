@@ -39,7 +39,15 @@ DocSign is a secure, digital signature platform inspired by DocuSign, built with
 
 **Frontend Application**: [https://doc-sign-app.vercel.app](https://doc-sign-app.vercel.app)
 
-The live frontend is deployed on Vercel and showcases the complete UI/UX of the application. For a full demonstration with backend functionality (PDF processing, database, authentication), see the [Local Demo Guide](LOCAL_DEMO.md).
+The live frontend is deployed on Vercel and showcases the complete UI/UX of the application.
+
+### Deployment Notes:
+
+**Frontend**: Fully deployed on Vercel with production-grade performance.
+
+**Backend**: The backend requires PyMuPDF (C++ library) for PDF manipulation, which presents compilation challenges on free hosting platforms. The complete backend code is available in this repository and runs perfectly in local development.
+
+For a **full demonstration** with backend functionality (PDF processing, database, authentication), see the [Local Demo Guide](LOCAL_DEMO.md).
 
 ### What's Live:
 - ✅ Complete UI/UX design
